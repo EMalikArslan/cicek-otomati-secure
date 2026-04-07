@@ -190,16 +190,360 @@ def nav_to_machine(mid):
 # 3. PUBLIC WEBSITE & LOGIN
 # ====================================================================
 def public_website():
-    menu_cols = st.columns([1, 4, 1])
-    with menu_cols[0]: st.markdown("### 🌸 Açelya")
-    with menu_cols[2]:
-        if st.button("🔐 Panel Girişi", type="primary", use_container_width=True):
+    # --- NAV BAR ---
+    st.markdown("""
+    <style>
+    .navbar {
+        display: flex; justify-content: space-between; align-items: center;
+        padding: 12px 32px; background: linear-gradient(90deg, #1a001a 0%, #3d0030 100%);
+        border-radius: 14px; margin-bottom: 8px;
+    }
+    .navbar-brand { color: #ff69b4; font-size: 1.5rem; font-weight: 800; letter-spacing: 1px; }
+    .hero {
+        text-align: center; padding: 70px 20px 50px 20px;
+        background: linear-gradient(135deg, #fdf2f8 0%, #fff0f5 50%, #fce4ec 100%);
+        border-radius: 24px; margin-bottom: 32px;
+    }
+    .hero h1 { color: #D9007E; font-size: 2.8rem; font-weight: 900; margin-bottom: 12px; }
+    .hero p { color: #555; font-size: 1.2rem; max-width: 650px; margin: 0 auto 24px auto; }
+    .badge {
+        display: inline-block; background: #D9007E; color: white;
+        border-radius: 20px; padding: 4px 16px; font-size: 0.85rem; margin: 4px;
+    }
+    .section-title { color: #D9007E; font-size: 1.9rem; font-weight: 800; margin-bottom: 6px; }
+    .section-sub { color: #777; margin-bottom: 28px; font-size: 1.05rem; }
+    .feature-card {
+        background: white; border-radius: 16px; padding: 28px 20px; text-align: center;
+        border: 1.5px solid #f8d7e8; height: 100%;
+        box-shadow: 0 2px 12px rgba(217,0,126,0.07);
+    }
+    .feature-icon { font-size: 2.4rem; margin-bottom: 12px; }
+    .feature-title { font-weight: 700; color: #1a001a; font-size: 1.05rem; margin-bottom: 8px; }
+    .feature-desc { color: #666; font-size: 0.93rem; line-height: 1.6; }
+    .model-card {
+        background: white; border-radius: 18px; padding: 22px 18px;
+        border: 1.5px solid #f0d6e8; margin-bottom: 16px;
+        box-shadow: 0 2px 14px rgba(217,0,126,0.06);
+    }
+    .model-name { color: #D9007E; font-size: 1.1rem; font-weight: 800; margin-bottom: 6px; }
+    .model-tag {
+        display: inline-block; background: #fdf2f8; color: #D9007E;
+        border: 1px solid #f8b4d4; border-radius: 12px;
+        padding: 2px 10px; font-size: 0.78rem; margin: 2px;
+    }
+    .model-spec { color: #555; font-size: 0.9rem; margin-top: 8px; line-height: 1.7; }
+    .contact-card {
+        background: linear-gradient(135deg, #1a001a, #3d0030);
+        border-radius: 20px; padding: 40px 32px; color: white; text-align: center;
+    }
+    .contact-card h2 { color: #ff69b4; margin-bottom: 12px; }
+    .contact-info { font-size: 1.1rem; margin: 8px 0; }
+    .divider-pink { border: none; border-top: 2px solid #f8d7e8; margin: 40px 0; }
+    </style>
+    <div class="navbar">
+        <span class="navbar-brand">🌸 Açelya & ETM</span>
+        <span style="color:#ccc; font-size:0.9rem;">7/24 Akıllı Çiçek Otomatı Sistemleri</span>
+    </div>
+    """, unsafe_allow_html=True)
+
+    col_nav, col_btn = st.columns([5, 1])
+    with col_btn:
+        if st.button("🔐 Bayi Girişi", type="primary", use_container_width=True):
             st.session_state['show_login'] = True; st.rerun()
+
     if st.session_state.get('show_login'): login_section(); return
+
     tabs = st.tabs(["🏠 Ana Sayfa", "🚀 Özellikler", "🤖 Modellerimiz", "📞 İletişim"])
+
+    # ================================================================
+    # TAB 1 - ANA SAYFA
+    # ================================================================
     with tabs[0]:
-        st.markdown("""<div style="text-align: center; padding: 50px; background-color: #fdf2f8; border-radius: 20px;">
-            <h1 style="color: #D9007E;">Çiçekçilikte Yeni Bir Çağ</h1></div>""", unsafe_allow_html=True)
+        st.markdown("""
+        <div class="hero">
+            <div><span class="badge">🆕 Yeni Nesil</span> <span class="badge">🇹🇷 Yerli Üretim</span> <span class="badge">🔧 IoT Bağlantılı</span></div>
+            <br>
+            <h1>Çiçekçilikte Yeni Bir Çağ</h1>
+            <p>ETM Akıllı Çiçek Otomatları ile işletmenizi 7 gün 24 saat çalıştırın. Personel gideri olmadan, her lokasyonda, her koşulda satış yapın.</p>
+            <div>
+                <span class="badge">✅ Temassız Ödeme</span>
+                <span class="badge">📱 Uzaktan Yönetim</span>
+                <span class="badge">❄️ İklim Kontrolü</span>
+                <span class="badge">📊 Anlık Raporlama</span>
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+
+        c1, c2, c3, c4 = st.columns(4)
+        c1.metric("Aktif Model", "9", "Farklı tasarım")
+        c2.metric("Max Kapasite", "96+", "Raf/gözlem")
+        c3.metric("Çalışma Süresi", "7/24", "Kesintisiz")
+        c4.metric("Geri Ödeme", "~12 Ay", "Ortalama")
+
+        st.markdown("<hr class='divider-pink'>", unsafe_allow_html=True)
+        st.markdown("""
+        <div style="text-align:center">
+            <div class="section-title">Neden ETM Çiçek Otomatı?</div>
+            <div class="section-sub">Rakiplerinizden bir adım önde olun</div>
+        </div>
+        """, unsafe_allow_html=True)
+
+        col1, col2, col3 = st.columns(3)
+        with col1:
+            st.markdown("""<div class="feature-card">
+                <div class="feature-icon">💰</div>
+                <div class="feature-title">Düşük İşletme Maliyeti</div>
+                <div class="feature-desc">Personel gideri olmadan çalışır. Elektrik tüketimi minimumda tutulmuştur. Bakım gereksinimleri oldukça düşüktür.</div>
+            </div>""", unsafe_allow_html=True)
+        with col2:
+            st.markdown("""<div class="feature-card">
+                <div class="feature-icon">📍</div>
+                <div class="feature-title">Esnek Yerleşim</div>
+                <div class="feature-desc">AVM, hastane, otel, havalimanı, metro istasyonu — 9 farklı form faktörüyle her mekâna özel çözüm.</div>
+            </div>""", unsafe_allow_html=True)
+        with col3:
+            st.markdown("""<div class="feature-card">
+                <div class="feature-icon">📲</div>
+                <div class="feature-title">Tam Uzaktan Kontrol</div>
+                <div class="feature-desc">Fiyat güncelleme, stok takibi, kapak kontrolü, sıcaklık izleme — her şey telefonunuzdan.</div>
+            </div>""", unsafe_allow_html=True)
+
+    # ================================================================
+    # TAB 2 - ÖZELLİKLER
+    # ================================================================
+    with tabs[1]:
+        st.markdown("""
+        <div class="section-title">🚀 Teknik Özellikler</div>
+        <div class="section-sub">ETM sistemlerinin size sunduğu teknolojik avantajlar</div>
+        """, unsafe_allow_html=True)
+
+        col1, col2 = st.columns(2)
+        with col1:
+            features_left = [
+                ("🔌", "IoT / Firebase Bağlantısı", "Raspberry Pi tabanlı kontrol birimi ile gerçek zamanlı Firebase bağlantısı. İnternet kesintilerinde yerel mod devreye girer."),
+                ("💳", "Çoklu Ödeme Desteği", "Entegre POS terminali ile kredi kartı, banka kartı ve temassız ödeme (NFC) desteği. Nakit modülü opsiyoneldir."),
+                ("❄️", "İklim Kontrol Sistemi", "Çiçeklerin tazeliğini korumak için dahili sıcaklık ve nem sensörü. Kritik değerlerde anlık alarm bildirimi."),
+                ("📸", "Ürün Fotoğraf Yönetimi", "Her gözlem için fotoğraf yüklenebilir. Müşteri dokunmatik ekranda ürünü görerek seçer."),
+            ]
+            for icon, title, desc in features_left:
+                st.markdown(f"""<div class="feature-card" style="margin-bottom:16px; text-align:left; display:flex; gap:16px; align-items:flex-start; padding:20px;">
+                    <div style="font-size:2rem">{icon}</div>
+                    <div><div class="feature-title">{title}</div><div class="feature-desc">{desc}</div></div>
+                </div>""", unsafe_allow_html=True)
+
+        with col2:
+            features_right = [
+                ("🖥️", "Dokunmatik Kiosk Ekran", "Müşteri arayüzü için 10\"+ dokunmatik ekran. Ürün görseli, fiyat ve seçim işlemi kolayca yapılır."),
+                ("📊", "Gelişmiş Satış Analitiği", "Saatlik yoğunluk grafikleri, en çok satan ürünler, günlük/aylık ciro takibi. Web panelinden anlık erişim."),
+                ("🔒", "Çok Katmanlı Güvenlik", "Bayi bazlı yetkilendirme, Firebase Authentication, şifreli iletişim. Her bayi yalnızca kendi makinelerini görür."),
+                ("🛠️", "Akıllı Dolum Asistanı", "Hangi rafın doldurulduğunu seçin, ürün adı ve fiyatını girin, fotoğraf çekin — sistem otomatik günceller."),
+            ]
+            for icon, title, desc in features_right:
+                st.markdown(f"""<div class="feature-card" style="margin-bottom:16px; text-align:left; display:flex; gap:16px; align-items:flex-start; padding:20px;">
+                    <div style="font-size:2rem">{icon}</div>
+                    <div><div class="feature-title">{title}</div><div class="feature-desc">{desc}</div></div>
+                </div>""", unsafe_allow_html=True)
+
+        st.markdown("<hr class='divider-pink'>", unsafe_allow_html=True)
+        st.markdown("""<div class="section-title">⚙️ Teknik Detaylar</div>""", unsafe_allow_html=True)
+        specs = {
+            "İşlemci": "Raspberry Pi 4 Model B (4GB RAM)",
+            "Bağlantı": "Wi-Fi 802.11ac / Ethernet (LAN)",
+            "Ödeme Sistemi": "Entegre POS Terminali (Visa, Mastercard, Temassız)",
+            "Yazılım": "Python / Firebase Realtime DB / Streamlit Web Panel",
+            "Uzaktan Yönetim": "Web tarayıcısı üzerinden, internet bağlantısı olan her cihazdan",
+            "Gövde Malzemesi": "Yüksek dayanımlı çelik + temperli cam",
+            "Güç Tüketimi": "Modele göre 150W – 400W",
+            "Garanti": "1 Yıl Parça & İşçilik",
+        }
+        col_a, col_b = st.columns(2)
+        items = list(specs.items())
+        for i, (k, v) in enumerate(items):
+            target = col_a if i < 4 else col_b
+            with target:
+                st.markdown(f"**{k}:** {v}")
+
+    # ================================================================
+    # TAB 3 - MODELLERİMİZ
+    # ================================================================
+    with tabs[2]:
+        st.markdown("""
+        <div class="section-title">🤖 Modellerimiz</div>
+        <div class="section-sub">Her mekân ve ihtiyaca özel 9 farklı tasarım</div>
+        """, unsafe_allow_html=True)
+
+        models = [
+            {
+                "isim": "Model 1 — Duvar Tipi Dikdörtgen",
+                "etiketler": ["Duvar Tipi", "20 Gözlü", "Dar Alan"],
+                "aciklama": "Klasik dikdörtgen gövde, düz kanopi tepesi. 4 sütun × 5 satır düzeninde 20 bağımsız cam kapılı gözlem. Duvar önü yerleşim için idealdir.",
+                "detaylar": [
+                    ("📦", "Kapasite", "20 gözlem (4×5)"),
+                    ("📐", "Yerleşim", "Duvar önü / iç mekân"),
+                    ("🚪", "Kapak Tipi", "Bireysel cam kapılı"),
+                    ("💡", "Öne Çıkan", "Kompakt, yüksek gözlem yoğunluğu"),
+                ],
+            },
+            {
+                "isim": "Model 2 — Geniş Duvar Tipi",
+                "etiketler": ["Duvar Tipi", "12 Büyük Gözlü", "Geniş Ürün"],
+                "aciklama": "Daha büyük gözlemlerle tasarlanmış geniş duvar tipi. 3 sütun × 4 satır düzeninde 12 büyük gözlem. Büket gibi hacimli çiçek aranjmanları için uygundur.",
+                "detaylar": [
+                    ("📦", "Kapasite", "12 gözlem (3×4)"),
+                    ("📐", "Yerleşim", "Duvar önü / geniş koridor"),
+                    ("🚪", "Kapak Tipi", "Büyük cam kapılı"),
+                    ("💡", "Öne Çıkan", "Büyük ambalajlı ürünler için ideal"),
+                ],
+            },
+            {
+                "isim": "Model 2 V2 — Köşe Tipi Yarım Yuvarlak",
+                "etiketler": ["Köşe Tipi", "Yarım Yuvarlak", "Estetik"],
+                "aciklama": "Yarım yuvarlak kanopi ve çokgen gövdesiyle köşe yerleşimine özel tasarım. Mekânın köşelerini değerlendirerek satış alanı oluşturur.",
+                "detaylar": [
+                    ("📦", "Kapasite", "9–12 gözlem"),
+                    ("📐", "Yerleşim", "Köşe / L köşe"),
+                    ("🚪", "Kapak Tipi", "Cam vitrin raflı"),
+                    ("💡", "Öne Çıkan", "Ölü köşeleri değerlendirir"),
+                ],
+            },
+            {
+                "isim": "Model 2 V3 — L Tipi Tezgah",
+                "etiketler": ["Tezgah Tipi", "L Şekil", "Karşılama Noktası"],
+                "aciklama": "L şekilli tezgah tasarımı, resepsiyon veya mağaza girişi için idealdir. Düz açılı kanopi ve geniş raf alanı ile profesyonel bir görünüm sunar.",
+                "detaylar": [
+                    ("📦", "Kapasite", "8–16 gözlem"),
+                    ("📐", "Yerleşim", "Resepsiyon / giriş noktası"),
+                    ("🚪", "Kapak Tipi", "Açık raf / cam kapılı"),
+                    ("💡", "Öne Çıkan", "Karşılama noktası tasarımı"),
+                ],
+            },
+            {
+                "isim": "Model 2 V4 — Kompakt Dikdörtgen",
+                "etiketler": ["Kompakt", "12 Gözlü", "Çok Yönlü"],
+                "aciklama": "Model 2'nin daha kompakt ve hafif versiyonu. Düz kanopi altında 3×4 gözlem düzeni. Sınırlı alanlarda tam performans sunar.",
+                "detaylar": [
+                    ("📦", "Kapasite", "12 gözlem (3×4)"),
+                    ("📐", "Yerleşim", "İç mekân / dar koridor"),
+                    ("🚪", "Kapak Tipi", "Cam kapılı"),
+                    ("💡", "Öne Çıkan", "Taşınabilir, çok yönlü"),
+                ],
+            },
+            {
+                "isim": "Model 3 — Dairesel 360°",
+                "etiketler": ["Dairesel", "360° Erişim", "Merkez Yerleşim"],
+                "aciklama": "Oktagonal gövde ve dairesel kanopi ile 360° erişim sağlayan model. Müşteriler her yönden ürünleri görebilir. AVM orta koridoru gibi açık alanlara uygundur.",
+                "detaylar": [
+                    ("📦", "Kapasite", "16–24 gözlem"),
+                    ("📐", "Yerleşim", "Orta koridor / açık alan"),
+                    ("🚪", "Kapak Tipi", "Çevre yönlü cam kapılı"),
+                    ("💡", "Öne Çıkan", "Her açıdan görünür, yüksek dikkat çekme"),
+                ],
+            },
+            {
+                "isim": "Model 4 Altıgen — Altıgen Kule",
+                "etiketler": ["Kule Tipi", "Altıgen", "Yüksek Kapasite"],
+                "aciklama": "Yüksek altıgen sütun formu ve kubbe tepesiyle dikkat çekici bir kule tasarımı. Her yüzeyinde raf sistemi barındırır. Yüksek hacimli lokasyonlar için uygundur.",
+                "detaylar": [
+                    ("📦", "Kapasite", "30–48 gözlem"),
+                    ("📐", "Yerleşim", "Büyük AVM / havalimanı"),
+                    ("🚪", "Kapak Tipi", "Yüzey bazlı cam kapılı"),
+                    ("💡", "Öne Çıkan", "Maksimum kapasite ve görünürlük"),
+                ],
+            },
+            {
+                "isim": "Model 4 Piramit — Piramit Tepeli Oktagon",
+                "etiketler": ["Oktagonal", "Piramit Tepe", "Premium"],
+                "aciklama": "Yarı kubbe/piramit tepeli ve oktagonal gövdeli premium tasarım. 4 sıra raf × çok yüzey = yüksek kapasite. Estetik görünümüyle lüks mekânlara hitap eder.",
+                "detaylar": [
+                    ("📦", "Kapasite", "24–40 gözlem"),
+                    ("📐", "Yerleşim", "Otel / lüks AVM"),
+                    ("🚪", "Kapak Tipi", "Çevre yönlü cam kapılı"),
+                    ("💡", "Öne Çıkan", "Premium estetik, yüksek kapasite"),
+                ],
+            },
+            {
+                "isim": "Model 4 Sekizgen — Sekizgen Kule",
+                "etiketler": ["Sekizgen", "Kule", "Çok Yönlü"],
+                "aciklama": "Yuvarlak düz tepeli sekizgen kule. Her yüzeyinde dikey dizilmiş çoklu gözlemler. Maksimum raf yoğunluğu ve 360° müşteri erişimi ile en yüksek kapasiteli model.",
+                "detaylar": [
+                    ("📦", "Kapasite", "48–96+ gözlem"),
+                    ("📐", "Yerleşim", "Büyük alan / merkezi nokta"),
+                    ("🚪", "Kapak Tipi", "Yüzey bazlı çoklu kapılı"),
+                    ("💡", "Öne Çıkan", "En yüksek kapasite, tam 360° erişim"),
+                ],
+            },
+        ]
+
+        for i in range(0, len(models), 2):
+            cols = st.columns(2)
+            for j, col in enumerate(cols):
+                if i + j >= len(models): break
+                m = models[i + j]
+                with col:
+                    tags_html = "".join([f'<span class="model-tag">{t}</span>' for t in m["etiketler"]])
+                    specs_html = "".join([
+                        f'<div style="display:flex;gap:8px;align-items:center;margin:3px 0">'
+                        f'<span style="font-size:1rem">{ic}</span>'
+                        f'<span style="color:#888;font-size:0.85rem;min-width:80px">{lbl}</span>'
+                        f'<span style="font-weight:600;font-size:0.9rem;color:#1a001a">{val}</span></div>'
+                        for ic, lbl, val in m["detaylar"]
+                    ])
+                    st.markdown(f"""<div class="model-card">
+                        <div class="model-name">{m["isim"]}</div>
+                        <div style="margin-bottom:10px">{tags_html}</div>
+                        <div class="model-spec">{m["aciklama"]}</div>
+                        <div style="margin-top:14px; padding-top:12px; border-top: 1px solid #f8d7e8">{specs_html}</div>
+                    </div>""", unsafe_allow_html=True)
+
+    # ================================================================
+    # TAB 4 - İLETİŞİM
+    # ================================================================
+    with tabs[3]:
+        st.markdown("""
+        <div class="section-title">📞 İletişim</div>
+        <div class="section-sub">Bayi olmak, teklif almak veya demo talep etmek için bize ulaşın</div>
+        """, unsafe_allow_html=True)
+
+        col1, col2 = st.columns([1, 1])
+        with col1:
+            st.markdown("""<div class="contact-card">
+                <h2>🌸 Açelya Çiçekçilik & ETM</h2>
+                <p style="color:#ddd; margin-bottom:24px">7/24 Akıllı Çiçek Otomatı Sistemleri</p>
+                <div class="contact-info">📧 <a href="mailto:ensmlk.68@gmail.com" style="color:#ff69b4">ensmlk.68@gmail.com</a></div>
+                <div class="contact-info">🕐 Yanıt Süresi: En geç 24 saat</div>
+                <div class="contact-info">🇹🇷 Türkiye geneli bayi ağı</div>
+                <br>
+                <div style="background:rgba(255,255,255,0.08); border-radius:12px; padding:16px; margin-top:8px">
+                    <div style="color:#ff69b4; font-weight:700; margin-bottom:8px">📋 Demo Talebi</div>
+                    <div style="color:#ddd; font-size:0.9rem">Yukarıdaki mail adresine <b>\"Demo Talebi\"</b> konusuyla yazın. En yakın lokasyonda canlı demo ayarlayalım.</div>
+                </div>
+            </div>""", unsafe_allow_html=True)
+
+        with col2:
+            st.markdown("#### ✉️ Bize Yazın")
+            with st.form("public_contact"):
+                name = st.text_input("Ad Soyad / Firma")
+                email_c = st.text_input("E-Posta Adresiniz")
+                interest = st.selectbox("İlgilendiğiniz Konu", [
+                    "Bayi Olmak İstiyorum",
+                    "Fiyat Teklifi",
+                    "Demo Talep Ediyorum",
+                    "Teknik Bilgi",
+                    "Diğer"
+                ])
+                msg = st.text_area("Mesajınız", height=120)
+                if st.form_submit_button("📨 Gönder", type="primary", use_container_width=True):
+                    if name and email_c and msg:
+                        try:
+                            db.reference('iletisim_formu').push({
+                                "ad": name, "email": email_c, "konu": interest,
+                                "mesaj": msg, "tarih": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                            })
+                            st.success("Mesajınız iletildi! En kısa sürede dönüş yapacağız. 🌸")
+                        except:
+                            st.info(f"Mesajınız için teşekkürler! Bize **ensmlk.68@gmail.com** adresinden de yazabilirsiniz.")
+                    else:
+                        st.warning("Lütfen tüm alanları doldurun.")
 
 def login_section():
     st.markdown("<br><br>", unsafe_allow_html=True)
