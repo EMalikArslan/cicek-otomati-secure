@@ -1,0 +1,21 @@
+includes:
+    - vendor/larastan/larastan/extension.neon
+
+parameters:
+    level: 6
+
+    paths:
+        - app
+        - config
+        - database
+        - routes
+        - tests
+
+    # Laravel'in dinamik ozellikleri (Eloquent sihirli alanlari) icin tolerans.
+    # Level 8'e cikis Faz 1'de yapilacak; once kod tabani genisleyecek.
+    ignoreErrors:
+        - identifier: missingType.iterableValue
+        - identifier: missingType.generics
+
+    excludePaths:
+        - bootstrap/cache
